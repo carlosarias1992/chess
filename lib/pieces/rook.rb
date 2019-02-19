@@ -7,6 +7,6 @@ class Rook < Piece
     end 
 
     def move_dirs
-        valid_moves.concat(moves(:horizontal) + moves(:vertical))
+        valid_moves = moves(:horizontal) + moves(:vertical)
     end 
 end

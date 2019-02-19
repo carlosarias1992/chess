@@ -9,6 +9,6 @@ class King < Piece
     end
 
     def move_dirs
-        valid_moves.concat(moves(:king))
+        valid_moves = moves(:king)
     end 
 end 

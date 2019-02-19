@@ -10,6 +10,6 @@ class Bishop < Piece
     end
 
     def move_dirs
-        valid_moves.concat(moves(:diagonal))
+        valid_moves = moves(:diagonal)
     end 
 end

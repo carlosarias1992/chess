@@ -28,6 +28,10 @@ class Player
         enemy_moves.include?(king_pos)
     end 
 
+    def check_mate?
+        board[king_pos].move_dirs.none? { |move| enemy_moves.include?(move) }
+    end 
+
     private 
 
     def king_pos 

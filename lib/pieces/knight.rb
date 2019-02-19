@@ -9,6 +9,6 @@ class Knight < Piece
     end
 
     def move_dirs
-        valid_moves.concat(moves(:knight))
+        valid_moves = moves(:knight)
     end 
 end 

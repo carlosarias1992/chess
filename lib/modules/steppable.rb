@@ -16,7 +16,7 @@ module Steppable
             next_x, next_y = cur_x + dx, cur_y + dy
             next_pos = [next_x, next_y] 
 
-            moves << next_pos if board.valid_move?(next_pos) && board[next_pos].color != color 
+            moves << next_pos if board.valid_move?(next_pos) && board[next_pos].color != color
         end 
     end 
 end 

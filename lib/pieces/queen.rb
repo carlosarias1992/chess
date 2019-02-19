@@ -7,6 +7,6 @@ class Queen < Piece
     end
 
     def move_dirs
-        valid_moves.concat(moves(:all))
+        valid_moves = moves(:all)
     end 
 end
