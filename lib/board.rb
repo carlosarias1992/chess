@@ -26,6 +26,10 @@ class Board
         false 
     end 
 
+    def dup 
+        Marshal.load(Marshal.dump(self))
+    end 
+
     def move_piece(start_pos, end_pos)
         if valid_move?(start_pos) && valid_move?(end_pos)
             if empty?(end_pos) && self[end_pos].color != self[start_pos].color 
