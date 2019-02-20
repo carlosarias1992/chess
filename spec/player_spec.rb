@@ -23,7 +23,38 @@ describe Player do
         end 
     end 
 
-    context '#turn' do 
-        it 'should request an input'
+    context '#checkmate?' do 
+        it 'should return true if player is in checkmate' do 
+            player.color = :white 
+            
+            board.move_piece([1,6], [3,6])
+            board.move_piece([6,4], [4,3])
+            board.move_piece([1,5], [2,5])
+            board.move_piece([7,3], [3,7])
+
+            expect(player.checkmate?).to be true 
+        end 
+
+        it 'should return false if the enemy player is in checkmate, but not the current player' do 
+            player.color = :black
+            
+            board.move_piece([1,6], [3,6])
+            board.move_piece([6,4], [4,3])
+            board.move_piece([1,5], [2,5])
+            board.move_piece([7,3], [3,7])
+
+            expect(player.checkmate?).to be false 
+        end 
+
+        it 'should return false if current player is not in checkmate' do 
+            player.color = :black
+            
+            board.move_piece([1,6], [3,6])
+            board.move_piece([6,4], [4,3])
+            board.move_piece([1,5], [2,5])
+            board.move_piece([7,3], [3,6])
+
+            expect(player.checkmate?).to be false 
+        end 
     end 
 end 

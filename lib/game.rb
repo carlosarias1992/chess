@@ -62,7 +62,7 @@ class Game
     end 
 
     def play 
-        loop do 
+        until current_player.checkmate?
             turn 
         end 
     end 

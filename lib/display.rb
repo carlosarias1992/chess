@@ -26,8 +26,14 @@ class Display
         end 
 
         puts error_message.colorize(:red)
-        puts check_message(player)
-        puts "Checkmate?: #{player.check_mate?}".colorize(:red) if player.check?
+
+        if player.check?
+            if player.checkmate?
+                puts "Checkmate! #{player.name} loses.\n".colorize(:red)
+            else 
+                puts check_message(player)
+            end 
+        end 
 
         nil 
     end 

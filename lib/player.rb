@@ -28,11 +28,41 @@ class Player
         enemy_moves.include?(king_pos)
     end 
 
-    def check_mate?
-        board[king_pos].move_dirs.none? { |move| enemy_moves.include?(move) }
+    def checkmate?
+        # board[king_pos].move_dirs.none? { |move| enemy_moves.include?(move) }
+
+        temp_board = board.dup 
+
+        friendly_moves.each do |piece_pos, moves|
+            moves.each do |move|
+                start_pos = piece_pos
+                end_pos = move 
+
+                temp_board.move_piece(start_pos, end_pos)
+                return false unless check? 
+                temp_board.move_piece(end_pos, start_pos)
+            end 
+        end 
+
+        true 
     end 
 
     private 
+
+    def friendly_moves 
+        moves = Hash.new { |h, k| h[k] = [] }
+
+        board.dup.grid.each_with_index do |row, i|
+            row.each_with_index do |piece, j|
+                unless board.empty?([i, j])
+                    available_moves = piece.move_dirs
+                    moves[piece.pos].concat(available_moves) if color == piece.color
+                end 
+            end 
+        end 
+
+        moves
+    end 
 
     def king_pos 
         king_position = []
