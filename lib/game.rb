@@ -69,10 +69,19 @@ class Game
 end 
 
 if __FILE__ == $PROGRAM_NAME 
-    practice_board = Board.new 
-    display = Display.new(practice_board)
-    player_1 = Player.new('Carlos', practice_board)
-    player_2 = Player.new('Ariel', practice_board)
-    new_game = Game.new(player_1, player_2, display)
-    new_game.play
+    board = Board.new
+    display = Display.new(board)
+
+    system("clear")
+    puts "Enter player1's name"
+    player1_name = gets.chomp
+
+    puts "\nEnter player2's name"
+    player2_name = gets.chomp 
+
+    player1 = Player.new(player1_name, board)
+    player2 = Player.new(player2_name, board)
+
+    game = Game.new(player1, player2, display)
+    game.play 
 end 
