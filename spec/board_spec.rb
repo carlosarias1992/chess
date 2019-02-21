@@ -1,5 +1,6 @@
 require 'rspec'
 require 'board'
+require 'byebug'
 
 describe Board do 
     subject(:board) { Board.new }
@@ -40,10 +41,35 @@ describe Board do
             it 'moves our piece to an enemy position' do 
                 start_pos = [0,0]
                 end_pos = [7,1]
-                ending_piece = board[end_pos]
+                beggining_piece = board[start_pos]
 
                 board.move_piece(start_pos, end_pos)
-                expect(board[end_pos]).to be_a(board[start_pos].class)
+                expect(board[end_pos]).to be(beggining_piece)
+            end 
+
+            it 'moves our pieces to their correct locations without altering any other location' do
+                beggining_piece = board[[0,1]]
+                board.move_piece([0,1], [2,2])
+                expect(board[[2,2]]).to be(beggining_piece)
+
+                beggining_piece = board[[6,2]]
+                board.move_piece([6,2], [4,2])
+                expect(board[[4,2]]).to be(beggining_piece)
+
+                beggining_piece = board[[2,2]]
+                board.move_piece([2,2], [4,3])
+                expect(board[[4,3]]).to be(beggining_piece)
+
+                beggining_piece = board[[6,3]]
+                board.move_piece([6,3], [5,3])
+                expect(board[[5,3]]).to be(beggining_piece)
+
+                beggining_piece = board[[4,3]]
+                board.move_piece([4,3], [5,5])
+                expect(board[[5,5]]).to be(beggining_piece)
+
+                expect(board[[1,0]]).to be_a(Pawn)
+                expect(board[[7,3]]).to be_a(Queen)
             end 
 
             it 'should update the piece\'s position' do 

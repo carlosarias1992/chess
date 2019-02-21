@@ -24,6 +24,25 @@ describe Player do
     end 
 
     context '#checkmate?' do 
+        it 'should return false if current player is not in checkmate' do 
+            player.color = :black
+
+            board.move_piece([0,1], [2,2])
+            board.move_piece([6,2], [4,2])
+            board.move_piece([2,2], [4,3])
+            board.move_piece([6,3], [5,3])
+            board.move_piece([4,3], [5,5])
+
+            expect(player.checkmate?).to be false 
+            
+            board.move_piece([1,6], [3,6])
+            board.move_piece([6,4], [4,3])
+            board.move_piece([1,5], [2,5])
+            board.move_piece([7,3], [3,6])
+
+            expect(player.checkmate?).to be false 
+        end 
+
         it 'should return true if player is in checkmate' do 
             player.color = :white 
             
@@ -42,17 +61,6 @@ describe Player do
             board.move_piece([6,4], [4,3])
             board.move_piece([1,5], [2,5])
             board.move_piece([7,3], [3,7])
-
-            expect(player.checkmate?).to be false 
-        end 
-
-        it 'should return false if current player is not in checkmate' do 
-            player.color = :black
-            
-            board.move_piece([1,6], [3,6])
-            board.move_piece([6,4], [4,3])
-            board.move_piece([1,5], [2,5])
-            board.move_piece([7,3], [3,6])
 
             expect(player.checkmate?).to be false 
         end 

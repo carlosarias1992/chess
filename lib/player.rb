@@ -24,13 +24,11 @@ class Player
         board.move_piece(start_pos, end_pos) 
     end 
 
-    def check?
-        enemy_moves.include?(king_pos)
+    def check?(board = self.board)
+        enemy_moves(board).include?(king_pos(board))
     end 
 
     def checkmate?
-        # board[king_pos].move_dirs.none? { |move| enemy_moves.include?(move) }
-
         temp_board = board.dup 
 
         friendly_moves.each do |piece_pos, moves|
@@ -39,7 +37,7 @@ class Player
                 end_pos = move 
 
                 temp_board.move_piece(start_pos, end_pos)
-                return false unless check? 
+                return false unless check?(temp_board)
                 temp_board.move_piece(end_pos, start_pos)
             end 
         end 
@@ -49,22 +47,7 @@ class Player
 
     private 
 
-    def friendly_moves 
-        moves = Hash.new { |h, k| h[k] = [] }
-
-        board.dup.grid.each_with_index do |row, i|
-            row.each_with_index do |piece, j|
-                unless board.empty?([i, j])
-                    available_moves = piece.move_dirs
-                    moves[piece.pos].concat(available_moves) if color == piece.color
-                end 
-            end 
-        end 
-
-        moves
-    end 
-
-    def king_pos 
+    def king_pos(board = self.board)
         king_position = []
 
         board.grid.each do |row| 
@@ -79,7 +62,22 @@ class Player
         king_position.uniq
     end 
 
-    def enemy_moves
+    def friendly_moves 
+        moves = Hash.new { |h, k| h[k] = [] }
+
+        board.grid.each_with_index do |row, i|
+            row.each_with_index do |piece, j|
+                unless board.empty?([i, j])
+                    available_moves = piece.move_dirs
+                    moves[piece.pos].concat(available_moves) if color == piece.color
+                end 
+            end 
+        end 
+
+        moves
+    end 
+
+    def enemy_moves(board = self.board)
         moves = []
 
         board.grid.each_with_index do |row, i|
